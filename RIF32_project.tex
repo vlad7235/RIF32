@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{authblk}
 \usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{url}
 %\author{Столяров В.А.}
 
 
@@ -136,14 +137,122 @@
 \subsection{Транзиентные и быстропеременные явления}
 Инструмент даст возможность обнаружения изучения в радиодиапазоне быстропеременных и транзиентных явлений, таких как гамма-всплески, сверхновые, быстрые радио всплески (FRB) и быстропеременные радиоисточники.
 
-\section{Моделирование}
+\section{Моделирование наблюдений и тест алгоритма CLEAN}
+Моделирование проводилось в пакете NRAO CASA v.5.4, на центральной частоте $f_c=13$~ГГц, 
+при ширине диапазона $\Delta f=1$~ГГц. Общее время наблюдения составляло $t_{int}=12$~часов. Шум приёмников 
+не учитывался. В алгоритме CLEAN использовались типовые настройки \cite{CASA_settings}.
+
+Для целей моделирования был подготовлен тестовый FITS-файл на основе изображений Hubble Ultra Deep Field 2014 \cite{HUDF2014} размером 
+2048х2048 пикселов, 3.4 х 3.4 угл. минуты, с разрешением 0.1 угл. сек/пиксель. Модельные координаты фазового центра были $\alpha=05^h30^m$, $\delta=22^{\circ}00'00"$ (Рис.~\ref{fig:HUDF2014}).
+
+\begin{figure}
+\center{
+\includegraphics[width=1\linewidth]{./figures/HUDF2014}
+}
+\caption{Тестовая площадка размером 2048х2048 пикселов, что соответствует 3.4 х 3.4 угл. минуты. Разрешение 0.1 угл. сек/пиксель.}
+\label{fig:HUDF2014}
+\end{figure}
+
+\subsection{Результаты восстановления CLEAN для различных конфигураций}
+
+\begin{figure} % [H]
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_2_5km_CLEAN}} a) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_23km_CLEAN}} d) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_2_5km_uv}} b) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_23km_uv}} e) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_2_5km_PSF}} c) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n32_23km_PSF}} f) \\
+\end{minipage}
+
+\caption{Результаты восстановления изображения алгоритмом CLEAN при моделировании наблюдений тестовой площадки. Случайная конфигурация, длина базы до 2.5км, $N_{ant}=32$: a) восстановленное изображение, b) покрытие uv-плоскости, c) синтезированная диаграмма направленности. Случайная конфигурация, длина базы до 23км, дополнительные антенны размещены в Хусе и на ВНП: d) восстановленное изображение, e) покрытие uv-плоскости, f) синтезированная диаграмма направленности.}
+\label{fig:RIF32-rand_n32}
+\end{figure}
+
+\begin{figure} % [H]
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_2_5km_CLEAN}} a) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_23km_CLEAN}} d) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_2_5km_uv}} b) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_23km_uv}} e) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_2_5km_PSF}} c) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_rand_n16_23km_PSF}} f) \\
+\end{minipage}
+
+\caption{Результаты восстановления изображения алгоритмом CLEAN при моделировании наблюдений тестовой площадки. Случайная конфигурация, длина базы до 2.5км, $N_{ant}=16$: a) восстановленное изображение, b) покрытие uv-плоскости, c) синтезированная диаграмма направленности. Случайная конфигурация, длина базы до 23км, дополнительные антенны размещены в Хусе и на ВНП: d) восстановленное изображение, e) покрытие uv-плоскости, f) синтезированная диаграмма направленности.}
+\label{fig:RIF32-rand_n16}
+\end{figure}
+
+\begin{figure} % [H]
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_2_5km_CLEAN}} a) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_23km_CLEAN}} d) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_2_5km_uv}} b) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_23km_uv}} e) \\
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_2_5km_PSF}} c) \\
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.47\linewidth}
+\center{\includegraphics[width=1\linewidth]{./figures/Model_reg_n32_23km_PSF}} f) \\
+\end{minipage}
+
+\caption{Результаты восстановления изображения алгоритмом CLEAN при моделировании наблюдений тестовой площадки. Линейная конфигурация, длина базы до 2.5км, $N_{ant}=32$: a) восстановленное изображение, b) покрытие uv-плоскости, c) синтезированная диаграмма направленности. Линейная конфигурация, длина базы до 23км, дополнительные антенны размещены в Хусе и на ВНП: d) восстановленное изображение, e) покрытие uv-плоскости, f) синтезированная диаграмма направленности.}
+\label{fig:RIF32-reg_n32}
+\end{figure}
 
 \section{Заключение}
 
 \section*{Благодарности}
 
+
 \begin{thebibliography}{1}
 \bibitem{Hagen} Jon B. Hagen, {\em Radio-frequency electronics. Circuits and application}, Second ed., Cambridge University Press, Cambridge, 2009 %, p.380.
+
+\bibitem{CASA_settings}  Simulation Guide for New Users (CASA 4.2), \url{https://casaguides.nrao.edu/index.php/Simulation_Guide_for_New_Users_(CASA_4.2)}, NRAO, USA, 2011
+
+\bibitem{HUDF2014} Hubble Ultra Deep Field 2014, \url{http://hubblesite.org/image/3380/news_release/2014-27}, STSI, USA, 2014
 
 \end{thebibliography}
 
